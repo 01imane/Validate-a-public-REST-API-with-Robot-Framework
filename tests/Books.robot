@@ -5,9 +5,17 @@ Library        Collections
 ${base_url}    http://127.0.0.1:8000 
 
 *** Test Cases ***
-ask all users and verify status_code
+Request all users and verify status_code
     Create Session    my_session    ${base_url}
     ${response}=    GET On Session    my_session    /books    expected_status=200
     Log To Console    ${response.content}
     ${content}=     Set Variable       ${response.json()}
     Length Should Be    ${content}    3
+
+Request a book
+    Create Session    my_session    ${base_url}
+    ${response}=    GET On Session    my_session    /books/Romance    expected_status=200
+    Log To Console    ${response.content}
+    ${content}=     Set Variable       ${response.json()}
+    Should Be Equal    ${content}[status]    vailable
+
