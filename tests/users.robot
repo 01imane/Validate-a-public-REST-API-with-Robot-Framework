@@ -30,6 +30,12 @@ at least a user is from Wisokyburgh
         Append To List    ${Cities}    ${user}[address][city]
     END
     List Should Contain Value    ${Cities}    Wisokyburgh
+
+which status_code we reciev while asking invalid data
+    Create Session    my_session    ${base_url}
+    ${response}=    GET On Session    my_session    /users/imane    expected_status=anything
+    Should Be Equal As Integers   ${response.status_code}    404
+
     
 
     
